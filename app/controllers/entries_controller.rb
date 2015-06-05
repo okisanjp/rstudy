@@ -4,7 +4,7 @@ class EntriesController < BaseController
   # GET /entries
   # GET /entries.json
   def index
-    @entries = Entry.all
+    @entries = Entry.all.order('updated_at DESC')
   end
 
   # GET /entries/1
