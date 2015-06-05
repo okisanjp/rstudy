@@ -69,6 +69,6 @@ class EntriesController < BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_params
-      params.require(:entry).permit(:user_id, :url, :comment, :category)
+      params.require(:entry).permit(:user_id, :url, :title, :comment, :category)
     end
 end
