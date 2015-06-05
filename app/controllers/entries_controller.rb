@@ -71,8 +71,15 @@ class EntriesController < BaseController
     def entry_params
       # ページタイトルを取得してパラメータに含める
       agent = Mechanize.new
-      page = agent.get(params[:entry][:url])
-      params[:entry][:title] = page.title
+      data = agent.get(params[:entry][:url])
+      # ISO-8859-1 Mechanizeの推測優先順位対策
+      if agent.page.parser.encoding == "ISO-8859-1"
+        agent.page.encoding = 'UTF-8'
+      end
+      # UTF−8中の不正なバイト列を?に変換
+      params[:entry][:title] = data.title.scrub('?')
+
+      logger.debug agent.page.parser.encoding
 
       params.require(:entry).permit(:user_id, :url, :title, :comment, :category)
     end
