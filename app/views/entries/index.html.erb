@@ -19,7 +19,7 @@
       <tr>
         <td><%= entry.updated_at.to_formatted_s(:simple) %></td>
         <td><%= entry.user.name %></td>
-        <td><%= link_to entry.url %></td>
+        <td><%= link_to entry.title, entry.url %></td>
         <td><%= entry.comment %></td>
         <td><%= entry.category %></td>
         <td><%= link_to 'Show', entry %></td>

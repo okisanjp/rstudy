@@ -1,4 +1,5 @@
 class EntriesController < BaseController
+  require 'mechanize'
   before_action :set_entry, only: [:show, :edit, :update, :destroy]
 
   # GET /entries
@@ -25,7 +26,6 @@ class EntriesController < BaseController
   # POST /entries.json
   def create
     @entry = Entry.new(entry_params)
-
     respond_to do |format|
       if @entry.save
         format.html { redirect_to @entry, notice: 'Entry was successfully created.' }
@@ -69,6 +69,11 @@ class EntriesController < BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_params
-      params.require(:entry).permit(:user_id, :url, :comment, :category)
+      # ページタイトルを取得してパラメータに含める
+      agent = Mechanize.new
+      page = agent.get(params[:entry][:url])
+      params[:entry][:title] = page.title
+
+      params.require(:entry).permit(:user_id, :url, :title, :comment, :category)
     end
 end
