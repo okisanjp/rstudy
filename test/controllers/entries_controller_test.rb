@@ -18,7 +18,7 @@ class EntriesControllerTest < ActionController::TestCase
 
   test "should create entry" do
     assert_difference('Entry.count') do
-      post :create, entry: { comment: @entry.comment, type: @entry.type, url: @entry.url, user_id: @entry.user_id }
+      post :create, entry: { category: @entry.category, comment: @entry.comment, url: @entry.url, user_id: @entry.user_id }
     end
 
     assert_redirected_to entry_path(assigns(:entry))
@@ -35,7 +35,7 @@ class EntriesControllerTest < ActionController::TestCase
   end
 
   test "should update entry" do
-    patch :update, id: @entry, entry: { comment: @entry.comment, type: @entry.type, url: @entry.url, user_id: @entry.user_id }
+    patch :update, id: @entry, entry: { category: @entry.category, comment: @entry.comment, url: @entry.url, user_id: @entry.user_id }
     assert_redirected_to entry_path(assigns(:entry))
   end
 
