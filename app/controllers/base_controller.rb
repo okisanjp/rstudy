@@ -1,4 +1,6 @@
 class BaseController < ActionController::Base
+  layout 'layouts/application'
+  
   protect_from_forgery
 
   def login_required
