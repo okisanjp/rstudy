@@ -16,6 +16,7 @@
   <tbody>
     <% @entries.each do |entry| %>
       <tr>
+        <td><%= entry.updated_at.to_formatted_s(:simple) %></td>
         <td><%= entry.user.name %></td>
         <td><%= link_to entry.url %></td>
         <td><%= entry.comment %></td>
