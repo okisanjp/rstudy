@@ -17,7 +17,7 @@
     <% @entries.each do |entry| %>
       <tr>
         <td><%= entry.user.name %></td>
-        <td><%= entry.url %></td>
+        <td><%= link_to entry.url %></td>
         <td><%= entry.comment %></td>
         <td><%= entry.category %></td>
         <td><%= link_to 'Show', entry %></td>
