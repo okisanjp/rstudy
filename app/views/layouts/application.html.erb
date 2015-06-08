@@ -52,6 +52,7 @@
             <li><%= link_to "Link2", "/path2"  %></li>
             <li><%= link_to "Link3", "/path3"  %></li>
             <% if current_user %>
+              <li><%= link_to current_user.name, :controller => "users", :action => "index" %></li>
               <li><%= link_to 'ログアウト', logout_path %></li>
             <% else %>
               <li><%= link_to 'ログイン', '/auth/twitter' %></li>

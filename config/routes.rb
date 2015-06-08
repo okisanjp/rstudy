@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :entries
+  resources :entries, :users
   root 'home#index'
   get "home/index"
   get '/auth/:provider/callback', :to => 'sessions#callback'
