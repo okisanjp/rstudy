@@ -12,7 +12,7 @@ class EntriesController < BaseController
   # GET /entries/1.json
   def show
   end
-  
+
   # GET /entries/new
   def new
     if current_user
@@ -30,6 +30,7 @@ class EntriesController < BaseController
     end
     # 自分のエントリ以外は不正なのでリダイレクト
     unless @entry.user_id == session[:user_id]
+      flash[:error] = "不正なデータです"
       redirect_to root_path
     end
   end
@@ -66,14 +67,10 @@ class EntriesController < BaseController
   # DELETE /entries/1
   # DELETE /entries/1.json
   def destroy
-    if @entry.user_id == session[:user_id]
-      @entry.destroy
-      respond_to do |format|
-        format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
-        format.json { head :no_content }
-      end
-    else
-      redirect_to root_path
+    @entry.destroy
+    respond_to do |format|
+      format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
+      format.json { head :no_content }
     end
   end
 
@@ -85,6 +82,7 @@ class EntriesController < BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_params
+      params[:entry][:user_id] = session[:user_id]
       params.require(:entry).permit(:user_id, :url, :title, :comment, :category)
     end
 end
