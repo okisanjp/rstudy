@@ -1,5 +1,11 @@
 source 'https://rubygems.org'
 
+# for bootstrap
+gem 'less-rails'
+gem 'therubyracer'
+gem 'execjs'
+gem 'twitter-bootstrap-rails'
+
 # for twitter auth
 gem 'omniauth'
 gem 'omniauth-twitter'
