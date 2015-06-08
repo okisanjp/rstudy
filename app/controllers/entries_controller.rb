@@ -15,11 +15,23 @@ class EntriesController < BaseController
 
   # GET /entries/new
   def new
-    @entry = Entry.new
+    if current_user
+      @entry = Entry.new
+    else
+      redirect_to root_path
+    end
   end
 
   # GET /entries/1/edit
   def edit
+    # ログインしていない場合リダイレクト
+    unless current_user
+      redirect_to root_path
+    end
+    # 自分のエントリ以外は不正なのでリダイレクト
+    unless @entry.user_id == session[:user_id]
+      redirect_to root_path
+    end
   end
 
   # POST /entries
@@ -54,10 +66,14 @@ class EntriesController < BaseController
   # DELETE /entries/1
   # DELETE /entries/1.json
   def destroy
-    @entry.destroy
-    respond_to do |format|
-      format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
-      format.json { head :no_content }
+    if @entry.user_id == session[:user_id]
+      @entry.destroy
+      respond_to do |format|
+        format.html { redirect_to entries_url, notice: 'Entry was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to root_path
     end
   end
 
@@ -69,18 +85,6 @@ class EntriesController < BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def entry_params
-      # ページタイトルを取得してパラメータに含める
-      agent = Mechanize.new
-      data = agent.get(params[:entry][:url])
-      # ISO-8859-1 Mechanizeの推測優先順位対策
-      if agent.page.parser.encoding == "ISO-8859-1"
-        agent.page.encoding = 'UTF-8'
-      end
-      # UTF−8中の不正なバイト列を?に変換
-      params[:entry][:title] = data.title.scrub('?')
-
-      logger.debug agent.page.parser.encoding
-
       params.require(:entry).permit(:user_id, :url, :title, :comment, :category)
     end
 end
