@@ -5,26 +5,22 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:user_id) %></th>
       <th><%= model_class.human_attribute_name(:url) %></th>
       <th><%= model_class.human_attribute_name(:comment) %></th>
       <th><%= model_class.human_attribute_name(:category) %></th>
-      <th><%= model_class.human_attribute_name(:title) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:updated_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @entries.each do |entry| %>
       <tr>
-        <td><%= link_to entry.id, entry_path(entry) %></td>
-        <td><%= entry.user_id %></td>
-        <td><%= entry.url %></td>
+        <td><%= entry.user.name %></td>
+        <td><%= link_to entry.title, entry.url %></td>
         <td><%= entry.comment %></td>
         <td><%= entry.category %></td>
-        <td><%= entry.title %></td>
-        <td><%=l entry.created_at %></td>
+        <td><%= entry.updated_at.to_formatted_s(:simple) %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_entry_path(entry), :class => 'btn btn-default btn-xs' %>

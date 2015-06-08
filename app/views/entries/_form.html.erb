@@ -15,19 +15,20 @@
     </div>
   <% end %>
 
-  <div class="control-group">
-    <%= f.label :user_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :user_id, :class => 'form-control' %>
-    </div>
-    <%= error_span(@entry[:user_id]) %>
-  </div>
+  <%= f.hidden_field :user_id, :value => session[:user_id] %>
   <div class="control-group">
     <%= f.label :url, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :url, :class => 'form-control' %>
     </div>
     <%= error_span(@entry[:url]) %>
+  </div>
+  <div class="control-group">
+    <%= f.label :title, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :title, :class => 'form-control' %>
+    </div>
+    <%= error_span(@entry[:title]) %>
   </div>
   <div class="control-group">
     <%= f.label :comment, :class => 'control-label' %>
@@ -43,14 +44,6 @@
     </div>
     <%= error_span(@entry[:category]) %>
   </div>
-  <div class="control-group">
-    <%= f.label :title, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :title, :class => 'form-control' %>
-    </div>
-    <%= error_span(@entry[:title]) %>
-  </div>
-
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),

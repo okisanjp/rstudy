@@ -1,6 +1,6 @@
 class EntriesController < BaseController
   require 'mechanize'
-  before_action :set_entry, only: [:show, :edit, :update, :destroy]
+  before_action :set_entry, only: [:show, :edit, :update, :destroy, :me]
 
   # GET /entries
   # GET /entries.json
@@ -12,7 +12,7 @@ class EntriesController < BaseController
   # GET /entries/1.json
   def show
   end
-
+  
   # GET /entries/new
   def new
     if current_user

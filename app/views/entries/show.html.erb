@@ -8,12 +8,12 @@
   <dd><%= @entry.user_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
   <dd><%= @entry.url %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dd><%= @entry.title %></dd>
   <dt><strong><%= model_class.human_attribute_name(:comment) %>:</strong></dt>
   <dd><%= @entry.comment %></dd>
   <dt><strong><%= model_class.human_attribute_name(:category) %>:</strong></dt>
   <dd><%= @entry.category %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
-  <dd><%= @entry.title %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
